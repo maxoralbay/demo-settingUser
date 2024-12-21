@@ -25,6 +25,12 @@ class Notificator
 
     }
 
+    /***
+     * Send message
+     * @param $message
+     * @param $opts
+     * @return bool
+     */
     public function sendMessage($message, $opts): bool
     {
         // prepare code
@@ -41,6 +47,11 @@ class Notificator
 
     }
 
+    /***
+     * Get provider
+     * @param string $method
+     * @return mixed|null
+     */
     public function provider(string $method)
     {
         // get provider

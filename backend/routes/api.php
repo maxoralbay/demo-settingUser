@@ -17,16 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//Route::middleware('auth:sanctum')->get('/debug-user', function (Request $request) {
-//    if ($request->user()) {
-//        return response()->json([
-//            'message' => 'User authenticated',
-//            'user' => $request->user()
-//        ]);
-//    } else {
-//        return response()->json(['error' => 'User not authenticated'], 401);
-//    }
-//});
 Route::get('/', function () {
     return response()->json(['message' => 'server is running']);
 });

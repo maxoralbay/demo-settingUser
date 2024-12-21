@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     /***
      * Home page
+     * @param Request $request
      */
     public function index(Request $request)
     {

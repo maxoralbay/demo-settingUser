@@ -4,8 +4,11 @@ namespace App\Repositories;
 
 interface NotificatorRepositoryInterface
 {
-    // send notification
-    // @param string $message
-    // @return true|false
+    /***
+     * Send message
+     * @param string $message
+     * @param array $opts
+     * @return bool
+     */
     public function send(string $message, array $opts): bool;
 }

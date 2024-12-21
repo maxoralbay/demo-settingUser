@@ -8,7 +8,12 @@ use App\Repositories\UserSettingRepositoryInterface;
 
 class UserSettingRepository implements UserSettingRepositoryInterface
 {
-
+    /***
+     * Get user setting by key
+     * @param $user_id
+     * @param $data
+     * @return array
+     */
     public function updateSetting($user_id, $data): array
     {
         // TODO: Implement updateSetting() method.

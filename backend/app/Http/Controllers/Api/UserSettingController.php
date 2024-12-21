@@ -18,6 +18,11 @@ class UserSettingController extends Controller
         $this->userSettingRepository = $userSettingRepository;
     }
 
+    /***
+     * Get user setting by key
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getSettingByKey(Request $request)
     {
         try {
@@ -52,37 +57,48 @@ class UserSettingController extends Controller
      */
     public function updateSetting(Request $request, int $userId)
     {
-        // if not exist userid or user not found then return error
-        $user = User::find($userId);
-        if (!$user) {
-            return response()->json([
-                'message' => 'User not found'
-            ], 404);
-        }
-        //validate request
-        $request->validate([
-            'key1' => 'required',
-            'key2' => 'required',
-            'code' => 'required',
-            'method' => 'required',
-        ]);
-        // prepare data
-        // sent repository
-        // get user id from url
-        //print_r([$userId, $key, $value]);
-        $data = [
-            'key1' => $request->input('key1'),
-            'key2' => $request->input('key2'),
-            'code' => $request->input('code'),
-        ];
-        $result = $this->userSettingRepository->updateSetting($userId, $data);
+        try {
+            // if not exist userid or user not found then return error
+            $user = User::find($userId);
+            if (!$user) {
+                return response()->json([
+                    'message' => 'User not found'
+                ], 404);
+            }
+            //validate request
+            $request->validate([
+                'key1' => 'required',
+                'key2' => 'required',
+                'code' => 'required',
+                'method' => 'required',
+            ]);
+            // prepare data
+            // sent repository
+            // get user id from url
+            //print_r([$userId, $key, $value]);
+            $data = [
+                'key1' => $request->input('key1'),
+                'key2' => $request->input('key2'),
+                'code' => $request->input('code'),
+            ];
+            $result = $this->userSettingRepository->updateSetting($userId, $data);
 
-        return response()->json([
-            'data' => $data,
-            'meta' => $result
-        ]);
+            return response()->json([
+                'data' => $data,
+                'meta' => $result
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
+    /***
+     * Send notification
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendNotification(Request $request)
     {
         try {
