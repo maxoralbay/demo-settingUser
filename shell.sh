@@ -1,0 +1,1 @@
+docker exec -it kx-php bash
