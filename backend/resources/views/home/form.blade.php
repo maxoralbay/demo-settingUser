@@ -62,13 +62,25 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.data) {
-
-                            console.log(data.data);
+                            windowAlert('Code sent');
                         } else {
+                            windowAlert('Failed to send code');
                             console.log('Failed to send code');
                         }
                     });
             });
+
+            function windowAlert(message) {
+                // alert(message);
+                let alert = document.createElement('div');
+                alert.classList.add('alert', 'alert-success', 'm-3');
+                alert.innerHTML = message;
+                document.body.appendChild(alert);
+                setTimeout(() => {
+                    alert.remove();
+                }, 3000);
+            }
+
             // save form
             document.getElementById('user-setting').addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -94,6 +106,10 @@
                             console.log(dataForm);
                             localStorage.setItem('userSetting', JSON.stringify(dataForm));
                             saveData();
+                            // if meta.status is not true, show the error message
+                            if (!data.meta.status) {
+                                windowAlert(data.meta.message);
+                            }
 
                         } else {
                             alert('Failed to save data');
@@ -108,6 +124,7 @@
             if (data) {
                 document.getElementById('key1').value = data.key1;
                 document.getElementById('key2').value = data.key2;
+
 
             }
         }

@@ -63,23 +63,23 @@ class UserSettingController extends Controller
         $request->validate([
             'key1' => 'required',
             'key2' => 'required',
-            // 'code' => 'required',
+            'code' => 'required',
             'method' => 'required',
         ]);
         // prepare data
         // sent repository
         // get user id from url
-        $key1 = $request->input('key1');
-        $key2 = $request->input('key2');
         //print_r([$userId, $key, $value]);
         $data = [
-            'key1' => $key1,
-            'key2' => $key2,
+            'key1' => $request->input('key1'),
+            'key2' => $request->input('key2'),
+            'code' => $request->input('code'),
         ];
-        $this->userSettingRepository->updateSetting($userId, $key1, $key2);
+        $result = $this->userSettingRepository->updateSetting($userId, $data);
 
         return response()->json([
             'data' => $data,
+            'meta' => $result
         ]);
     }
 
